@@ -1,0 +1,26 @@
+{
+  "name": "kotoblog",
+  "version": "1.0.0",
+  "description": "Kotoblog is a progremmer blog of Serhii Polishchuk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spolischook/kotoblo_v2.git"
+  },
+  "author": "Serhii Polishchuk <spolischook@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spolischook/kotoblo_v2/issues"
+  },
+  "homepage": "https://github.com/spolischook/kotoblo_v2#readme",
+  "devDependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.12.9"
+  },
+  "dependencies": {
+  }
+}
