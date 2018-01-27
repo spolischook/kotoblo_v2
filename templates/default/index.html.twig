@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} - Pretty blog{% endblock %}
+
+{% block content %}
+    {{ include('components/article_list.html.twig', { 'articles': articles }) }}
+    <div class="showMore"></div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+<style>
+</style>
+{% endblock %}

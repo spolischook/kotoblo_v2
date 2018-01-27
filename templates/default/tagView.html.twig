@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} - {{ tag.title }}{% endblock %}
+
+{% block content %}
+    <h1>Articles by tag "{{ tag.title }}"</h1>
+    {{ include('components/article_list.html.twig', { 'articles': tag.articles }) }}
+{% endblock %}
