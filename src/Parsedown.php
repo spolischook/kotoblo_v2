@@ -11,8 +11,6 @@ class Parsedown extends BaseParsedown
         $block = parent::blockFencedCode($line);
 
         if ($block) {
-//            $block['element']['attributes']['class'] = 'hljs';
-//            $block['element']['attributes']['style'] = 'padding: 0;';
             if (@isset($block['element']['text']['attributes']['class'])) {
                 $class = $block['element']['text']['attributes']['class'];
                 $class = str_replace('language-', '', $class);
