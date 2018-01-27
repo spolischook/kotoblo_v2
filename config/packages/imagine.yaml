@@ -1,4 +1,8 @@
 liip_imagine:
+    loaders:
+        default:
+            filesystem:
+                data_root: '%kernel.root_dir%/../public'
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
 
