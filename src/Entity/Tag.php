@@ -49,18 +49,18 @@ class Tag
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      * @return Tag
      */
-    public function setId($id)
+    public function setId($id): Tag
     {
         $this->id = $id;
         return $this;
@@ -69,7 +69,7 @@ class Tag
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -85,18 +85,18 @@ class Tag
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getSlug()
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
 
     /**
-     * @param mixed $slug
+     * @param string $slug
      * @return Tag
      */
-    public function setSlug($slug)
+    public function setSlug($slug): Tag
     {
         $this->slug = $slug;
         return $this;
@@ -105,7 +105,7 @@ class Tag
     /**
      * @return int
      */
-    public function getWeight(): int
+    public function getWeight(): ?int
     {
         return $this->weight;
     }

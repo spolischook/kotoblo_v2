@@ -65,7 +65,7 @@ class Article
      * @var boolean
      * @ORM\Column(type="boolean")
      */
-    private $published;
+    private $published = false;
 
     /**
      * @var Tag[]|Collection
@@ -76,12 +76,14 @@ class Article
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -99,7 +101,7 @@ class Article
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -115,9 +117,9 @@ class Article
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getSlug()
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -126,7 +128,7 @@ class Article
      * @param mixed $slug
      * @return Article
      */
-    public function setSlug($slug)
+    public function setSlug($slug): Article
     {
         $this->slug = $slug;
         return $this;
@@ -135,7 +137,7 @@ class Article
     /**
      * @return string
      */
-    public function getText(): string
+    public function getText(): ?string
     {
         return $this->text;
     }
@@ -153,7 +155,7 @@ class Article
     /**
      * @return mixed
      */
-    public function getTextSource()
+    public function getTextSource(): ?string
     {
         return $this->textSource;
     }
@@ -162,25 +164,25 @@ class Article
      * @param mixed $textSource
      * @return Article
      */
-    public function setTextSource($textSource)
+    public function setTextSource($textSource): Article
     {
         $this->textSource = $textSource;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
     /**
-     * @param mixed $image
+     * @param string $image
      * @return Article
      */
-    public function setImage($image)
+    public function setImage($image): Article
     {
         $this->image = $image;
         return $this;
@@ -198,7 +200,7 @@ class Article
      * @param mixed $imageFile
      * @return Article
      */
-    public function setImageFile($imageFile)
+    public function setImageFile($imageFile): Article
     {
         $this->imageFile = $imageFile;
         return $this;
@@ -209,7 +211,7 @@ class Article
      */
     public function isPublished(): bool
     {
-        return $this->published;
+        return $this->published ? true : false;
     }
 
     /**
