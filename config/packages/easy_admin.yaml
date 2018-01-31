@@ -20,5 +20,4 @@ easy_admin:
             - { label: 'Open front-end', route: 'homepage' }
         assets:
             js:
-                - '/ckeditor/ckeditor.js'
                 - '/js/admin.js'

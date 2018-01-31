@@ -1,4 +1,6 @@
 /node_modules/
+/var/data.db
+/public/images/
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
