@@ -1,7 +1,9 @@
 'use strict';
 
-const path = require('path');
-const webpack = require('webpack');
+const path = require('path'),
+    webpack = require('webpack'),
+    ManifestPlugin = require('webpack-manifest-plugin')
+;
 
 module.exports = {
     entry: {
@@ -19,6 +21,7 @@ module.exports = {
             hljs: 'highlight.js',
             'window.hljs': 'highlight.js',
         }),
+        new ManifestPlugin(),
     ],
     module: {
         rules: [

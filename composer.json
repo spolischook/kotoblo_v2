@@ -19,11 +19,13 @@
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^4.0",
         "symfony/translation": "^4.0",
+        "symfony/webpack-encore-pack": "^1.0",
         "symfony/yaml": "^4.0",
         "vich/uploader-bundle": "^1.8"
     },
     "require-dev": {
-        "symfony/profiler-pack": "^1.0"
+        "symfony/profiler-pack": "^1.0",
+        "symfony/web-server-bundle": "^4.0"
     },
     "config": {
         "preferred-install": {
