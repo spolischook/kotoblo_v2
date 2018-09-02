@@ -2,9 +2,9 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow-night.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.1.0/highlightjs-line-numbers.min.js"></script>
+          href="https://kotoblog.s3.eu-central-1.amazonaws.com/css/tomorrow-night_9.12.0.min.css">
+    <script src="https://kotoblog.s3.eu-central-1.amazonaws.com/js/highlight_9.12.0.min.js"></script>
+    <script src="https://kotoblog.s3.eu-central-1.amazonaws.com/js/highlightjs-line-numbers_2.1.0.min.js"></script>
     <style>
         /* for block of numbers */
         td.hljs-ln-numbers {
@@ -49,19 +49,17 @@
         </span>
     </article>
     <h3 id="comments">Comments</h3>
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'kotoblogppua'; // required: replace example with your forum shortname
 
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    {% if app.user %}
+        Live comments as <strong>{{ app.user.username }}</strong>, or <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ path('hwi_oauth_service_redirect', {service: 'github', _target_path: path('article_view', {slug: article.slug})}) }}">
+            Login with <svg class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+            GitHub to live a comments
+        </a>
+    {% endif %}
+
+    {% include '@FOSComment/Thread/async.html.twig' with {'id': article.id} %}
 {% endblock %}
 {% block javascripts %}
     <script>

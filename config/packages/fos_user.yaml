@@ -1,0 +1,13 @@
+fos_user:
+  db_driver: orm
+  firewall_name: main
+  user_class: App\Entity\User
+  service:
+    mailer: fos_user.mailer.noop
+  registration:
+    confirmation:
+      enabled:    false
+#  resetting: false
+  from_email:
+    address: "anon@kotoblog.pp.ua"
+    sender_name: "anon"

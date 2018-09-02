@@ -1,0 +1,113 @@
+{#
+
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+
+{% block fos_comment_comment %}
+<div id="fos_comment_{{ comment.id }}" class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }}" {% if parent is defined and parent is not null %}data-parent="{{ parent.id }}"{% endif %}>
+    <div class="row">
+        <div class="fos_comment_comment_metas col-sm-3 col-12">
+            {% block fos_comment_comment_metas %}
+                {% block fos_comment_comment_metas_authorline %}
+                    <div class="text-center">
+                        <img class="img-fluid img-thumbnail rounded" src="{{ comment.author.avatarUrl }}">
+                    </div>
+                    <div class="text-center fos_comment_comment_authorname">
+                        {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+                            {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+                        {% else %}
+                            {{ comment.authorName }}
+                        {% endif %}
+                    </div>
+                    <div class="text-center comment-datetime">
+                        {{ comment.createdAt|date('Y/m/d H:i') }}
+                    </div>
+                {% endblock fos_comment_comment_metas_authorline %}
+
+
+
+
+
+                {% block fos_comment_comment_metas_voting %}
+                    {% if fos_comment_can_vote(comment) %}
+                        <div class="fos_comment_comment_voting">
+                            <button data-url="{{ url("fos_comment_new_thread_comment_votes", {"id": comment.thread.id, "commentId": comment.id, "value": 1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}</button>
+                            <button data-url="{{ url("fos_comment_new_thread_comment_votes", {"id": comment.thread.id, "commentId": comment.id, "value": -1}) }}" class="fos_comment_comment_vote">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}</button>
+                            <div class="fos_comment_comment_score" id="fos_comment_score_{{ comment.id }}">{% include '@FOSComment/Thread/comment_votes.html.twig' with { 'commentScore': comment.score } %}</div>
+                        </div>
+                    {% endif %}
+                {% endblock fos_comment_comment_metas_voting %}
+            {% endblock fos_comment_comment_metas %}
+        </div>
+
+        <div id="fos_comment_comment_body_{{ comment.id }}" class="col-sm-9 col-12">
+            <div class="row fos_comment_comment_body">
+                {% block fos_comment_comment_body %}
+                    {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+                        {% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}
+                    {% else %}
+                        {% if comment is fos_comment_raw %}
+                            {{ comment.rawBody | raw }}
+                        {% else %}
+                            {{ comment.body | nl2br }}
+                        {% endif %}
+                    {% endif %}
+                {% endblock fos_comment_comment_body %}
+            </div>
+            <div class="row actions">
+                {% if fos_comment_can_comment(comment) %}
+                    <div class="fos_comment_comment_reply action-block">
+                        {% block fos_comment_comment_reply %}
+                            <svg class="octicon octicon-reply" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6 3.5c3.92.44 8 3.125 8 10-2.312-5.062-4.75-6-8-6V11L.5 5.5 6 0v3.5z"></path></svg>
+                            <span data-url="{{ url('fos_comment_new_thread_comments', {"id": comment.thread.id}) }}" data-name="{{ comment.authorName }}" data-parent-id="{{ comment.id }}" class="fos_comment_comment_reply_show_form comment-action">{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_reply{% endtrans %}</span>
+                        {% endblock fos_comment_comment_reply %}
+                    </div>
+                {% endif %}
+                {% block fos_comment_comment_metas_edit %}
+                    {% if fos_comment_can_edit_comment(comment) %}
+                        <div class="action-block">
+                            <svg class="octicon octicon-pencil" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"></path></svg>
+                            <span data-container="#fos_comment_comment_body_{{ comment.id }}" data-url="{{ url("fos_comment_edit_thread_comment", {"id": comment.thread.id, "commentId": comment.id}) }}" class="fos_comment_comment_edit_show_form comment-action">{% trans from 'FOSCommentBundle' %}fos_comment_comment_edit{% endtrans %}</span>
+                        </div>
+                    {% endif %}
+                {% endblock fos_comment_comment_metas_edit %}
+                {% block fos_comment_comment_metas_delete %}
+                    {% if fos_comment_can_delete_comment(comment) %}
+                        <div class="action-block">
+                            {% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}
+                                {# undelete #}
+                                <span data-url="{{ url("fos_comment_remove_thread_comment", {"id": comment.thread.id, "commentId": comment.id, "value": constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_VISIBLE') }) }}" class="fos_comment_comment_remove comment-action">{% trans from 'FOSCommentBundle' %}fos_comment_comment_undelete{% endtrans %}</span>
+                            {% else %}
+                                {# delete #}
+                                <svg class="octicon octicon-trashcan" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M11 2H9c0-.55-.45-1-1-1H5c-.55 0-1 .45-1 1H2c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1v9c0 .55.45 1 1 1h7c.55 0 1-.45 1-1V5c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm-1 12H3V5h1v8h1V5h1v8h1V5h1v8h1V5h1v9zm1-10H2V3h9v1z"></path></svg>
+                                <span data-url="{{ url("fos_comment_remove_thread_comment", {"id": comment.thread.id, "commentId": comment.id, "value":  constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')}) }}" class="fos_comment_comment_remove comment-action">{% trans from 'FOSCommentBundle' %}fos_comment_comment_delete{% endtrans %}</span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endblock fos_comment_comment_metas_delete %}
+            </div>
+        </div>
+    </div>
+
+    {% block fos_comment_comment_children %}
+        {% if view is not same as('flat') %}
+            <div class="fos_comment_comment_replies">
+
+                {% if children is defined %}
+                    {% include '@FOSComment/Thread/comments.html.twig' with { "comments": children, "depth": depth + 1, "parent": comment, "view": view } %}
+                {% endif %}
+
+            </div>
+        {% elseif view is same as('flat') and children is defined %}
+            {% include '@FOSComment/Thread/comments.html.twig' with { "comments": children, "depth": depth + 1, "parent": comment, "view": view } %}
+        {% endif %}
+    {% endblock fos_comment_comment_children %}
+
+</div>
+{% endblock fos_comment_comment %}
