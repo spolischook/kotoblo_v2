@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Tag;
 use App\Parsedown;
 use App\Repository\ArticleRepository;
+use App\Repository\ThreadRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,10 +18,11 @@ class DefaultController extends Controller
     /**
      * @Route(name="homepage", path="/")
      */
-    public function index(ArticleRepository $articleRepository)
+    public function index(ArticleRepository $articleRepository, ThreadRepository $threadRepository)
     {
         return $this->render('default/index.html.twig', [
             'articles' => $articleRepository->findBy(['published' => true], ['createdAt' => 'DESC']),
+            'thread_comments' => $threadRepository->getNumberComments(),
         ]);
     }
 
