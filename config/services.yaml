@@ -30,3 +30,9 @@ services:
     App\EventListener\FillArticleSourceTextSubscriber:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    App\Security\FOSUBUserProvider:
+        class:     App\Security\FOSUBUserProvider
+        arguments: ['@fos_user.user_manager', { github: githubId }]
+        calls:
+            - ['setEntityManager', ['@fos_user.object_manager']]
