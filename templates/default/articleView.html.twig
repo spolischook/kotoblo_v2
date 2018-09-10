@@ -44,9 +44,9 @@
             </time>
             {% include 'components/articleTags.html.twig' with {'tags': article.tags} %}
         </h6>
-        <span itemprop="articleBody">
+        <div itemprop="articleBody">
             {{ article.text|raw }}
-        </span>
+        </div>
     </article>
     <h3 id="comments">Comments</h3>
 
