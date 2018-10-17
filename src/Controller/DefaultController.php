@@ -59,15 +59,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route(name="play", path="/play")
-     */
-    public function play()
-    {
-        return $this->render('play.html.twig');
-    }
-
-    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route(name="editor-template", path="/editor")
