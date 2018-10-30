@@ -62,6 +62,7 @@
     {% include '@FOSComment/Thread/async.html.twig' with {'id': article.id} %}
 {% endblock %}
 {% block javascripts %}
+    {{ parent() }}
     <script>
         hljs.initHighlightingOnLoad();
         hljs.initLineNumbersOnLoad();
