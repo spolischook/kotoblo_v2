@@ -1,35 +1,4 @@
 {% extends 'base.html.twig' %}
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet"
-          href="https://d2ck16jxw8uc3k.cloudfront.net/css/tomorrow-night_9.12.0.min.css">
-    <script src="https://d2ck16jxw8uc3k.cloudfront.net/js/highlight_9.12.0.min.js"></script>
-    <script src="https://d2ck16jxw8uc3k.cloudfront.net/js/highlightjs-line-numbers_2.1.0.min.js"></script>
-    <style>
-        /* for block of numbers */
-        td.hljs-ln-numbers {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-
-            text-align: center;
-            color: #ccc;
-            border-right: 1px solid #CCC;
-            vertical-align: top;
-            padding-right: 5px;
-
-            /* your custom style here */
-        }
-
-        /* for block of code */
-        td.hljs-ln-code {
-            padding-left: 10px;
-        }
-    </style>
-{% endblock %}
 {% block title %}{{ parent() }} - {{ article.title }}{% endblock %}
 
 {% block content %}
@@ -60,11 +29,4 @@
     {% endif %}
 
     {% include '@FOSComment/Thread/async.html.twig' with {'id': article.id} %}
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        hljs.initHighlightingOnLoad();
-        hljs.initLineNumbersOnLoad();
-    </script>
 {% endblock %}
