@@ -1,6 +1,8 @@
 /node_modules/
 /var/data.db
 /public/images/
+/public/probability-theory/
+/public/numerical-methods/
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
