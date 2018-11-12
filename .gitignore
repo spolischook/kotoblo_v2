@@ -3,6 +3,7 @@
 /public/images/
 /public/probability-theory/
 /public/numerical-methods/
+/public/synergetics/
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
