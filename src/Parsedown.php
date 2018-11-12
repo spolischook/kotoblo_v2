@@ -124,4 +124,19 @@ class Parsedown extends BaseParsedown
 
         return $block;
     }
+
+    /**
+     * {@inheritdoc}
+     * Added bordered table style https://getbootstrap.com/docs/4.1/content/tables/#bordered-table
+     */
+    protected function blockTable($Line, array $Block = null)
+    {
+        $block = parent::blockTable($Line, $Block);
+
+        if ($block) {
+            $block['element']['attributes']['class'] = 'table table-bordered';
+        }
+
+        return $block;
+    }
 }
