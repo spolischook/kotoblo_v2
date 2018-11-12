@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} - {{ title }}{% endblock %}
+
+{% block content %}
+    {% if base_url is defined %}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ base_url }}">{{ title }}</a></li>
+            </ol>
+        </nav>
+    {% endif %}
+    {{ body|raw }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+    </style>
+{% endblock %}

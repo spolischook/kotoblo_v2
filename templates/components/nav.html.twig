@@ -11,6 +11,14 @@
             <li class="nav-item{% if 'homepage' == app.request.get('_route') %} active{% endif %}">
                 <a class="nav-link" href="{{ path('homepage') }}">Home <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Case study
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ path('probability-theory-index') }}">Probability Theory</a>
+                </div>
+            </li>
             <li class="nav-item{% if 'about_me' == app.request.get('_route') %} active{% endif %}">
                 <a class="nav-link" href="{{ path('about_me') }}">About me</a>
             </li>
